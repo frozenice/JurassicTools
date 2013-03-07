@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurassicTools", "JurassicTools\JurassicTools.csproj", "{8E5FD805-7F88-4D25-9329-8A6F0EA4D5D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{422ED2E4-1DAF-41CD-B030-ABA2E12F85A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E5FD805-7F88-4D25-9329-8A6F0EA4D5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E5FD805-7F88-4D25-9329-8A6F0EA4D5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E5FD805-7F88-4D25-9329-8A6F0EA4D5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E5FD805-7F88-4D25-9329-8A6F0EA4D5D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{422ED2E4-1DAF-41CD-B030-ABA2E12F85A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422ED2E4-1DAF-41CD-B030-ABA2E12F85A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422ED2E4-1DAF-41CD-B030-ABA2E12F85A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{422ED2E4-1DAF-41CD-B030-ABA2E12F85A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
