@@ -173,8 +173,11 @@ namespace JurassicTools
           // public ... Method(...)
           // !converting static method to instance method!
           MethodInfo[] miStatics = typeT.GetMethods(BindingFlags.Public | BindingFlags.Static /*| BindingFlags.DeclaredOnly*/);
+          List<String> methodNames = new List<string>();
           foreach (MethodInfo miStatic in miStatics)
           {
+            if (methodNames.Contains(miStatic.Name)) continue;
+            else methodNames.Add(miStatic.Name);
             Attribute[] infoAttributes = GetAttributes(infos, miStatic.Name, typeof(JSFunctionAttribute));
             if (!Attribute.IsDefined(miStatic, typeof(JSFunctionAttribute)) && infoAttributes.Length == 0) continue;
             MethodBuilder proxyStatic = typeBuilder.DefineMethod(miStatic.Name, miStatic.Attributes & ~MethodAttributes.Static);
@@ -213,8 +216,9 @@ namespace JurassicTools
             if (piStaticGet == null && piStaticSet == null) continue;
             PropertyBuilder proxyStatic = typeBuilder.DefineProperty(piStatic.Name, piStatic.Attributes, GetConvertOrWrapType(piStatic.PropertyType), null);
             proxyStatic.CopyCustomAttributesFrom(piStatic, infoAttributes);
-            if (piStaticGet != null)
+            if (piStaticGet != null && !methodNames.Contains(piStaticGet.Name))
             {
+              methodNames.Add(piStaticGet.Name);
               MethodBuilder proxyStaticGet = typeBuilder.DefineMethod(piStaticGet.Name, piStaticGet.Attributes & ~MethodAttributes.Static);
               proxyStaticGet.SetReturnType(GetConvertOrWrapType(piStaticGet.ReturnType));
               proxyStaticGet.CopyParametersFrom(piStaticGet);
@@ -239,8 +243,9 @@ namespace JurassicTools
               getGen.Emit(OpCodes.Ret);
               proxyStatic.SetGetMethod(proxyStaticGet);
             }
-            if (piStaticSet != null)
+            if (piStaticSet != null && !methodNames.Contains(piStaticSet.Name))
             {
+              methodNames.Add(piStaticSet.Name);
               MethodBuilder proxyStaticSet = typeBuilder.DefineMethod(piStaticSet.Name, piStaticSet.Attributes & ~MethodAttributes.Static);
               proxyStaticSet.SetReturnType(piStaticSet.ReturnType);
               proxyStaticSet.CopyParametersFrom(piStaticSet);
@@ -776,7 +781,9 @@ namespace JurassicTools
           gen.Emit(OpCodes.Box, type); // why? bugs!
         }
       }
-      gen.Emit(OpCodes.Ldtoken, type); // > type
+      Type realType = type;
+      if (type.IsByRef || type.IsPointer) realType = type.GetElementType();
+      gen.Emit(OpCodes.Ldtoken, realType); // > type
       gen.Emit(OpCodes.Call, ReflectionCache.Type__GetTypeFromHandle__RuntimeTypeHandle); // > typeof(<)
       gen.Emit(OpCodes.Call, ReflectionCache.JurassicExposer__ConvertOrUnwrapObject__Object_Type); // JurassicExposer.ConvertOrUnwrapObject(<, <)
       if (type.IsValueType) gen.Emit(OpCodes.Unbox_Any, type);
@@ -820,8 +827,11 @@ namespace JurassicTools
 
         // public ... Method(...)
         MethodInfo[] miInsts = type.GetMethods(BindingFlags.Public | BindingFlags.Instance /*| BindingFlags.DeclaredOnly*/);
+        List<string> methodNames = new List<string>();
         foreach (MethodInfo miInst in miInsts)
         {
+          if (methodNames.Contains(miInst.Name)) continue;
+          else methodNames.Add(miInst.Name);
           Attribute[] infoAttributes = GetAttributes(infos, miInst.Name, typeof(JSFunctionAttribute));
           if (!Attribute.IsDefined(miInst, typeof(JSFunctionAttribute)) && infoAttributes.Length == 0) continue;
           MethodBuilder proxyInst = typeBuilder.DefineMethod(miInst.Name, miInst.Attributes);
@@ -854,8 +864,9 @@ namespace JurassicTools
           if (piInstGet == null && piInstSet == null) continue;
           PropertyBuilder proxyInstance = typeBuilder.DefineProperty(piInst.Name, piInst.Attributes, GetConvertOrWrapType(piInst.PropertyType), null);
           proxyInstance.CopyCustomAttributesFrom(piInst, infoAttributes);
-          if (piInstGet != null)
+          if (piInstGet != null && !methodNames.Contains(piInstGet.Name))
           {
+            methodNames.Add(piInstGet.Name);
             MethodBuilder proxyInstanceGet = typeBuilder.DefineMethod(piInstGet.Name, piInstGet.Attributes);
             proxyInstanceGet.SetReturnType(GetConvertOrWrapType(piInstGet.ReturnType));
             proxyInstanceGet.CopyParametersFrom(piInstGet);
@@ -875,8 +886,9 @@ namespace JurassicTools
             getGen.Emit(OpCodes.Ret);
             proxyInstance.SetGetMethod(proxyInstanceGet);
           }
-          if (piInstSet != null)
+          if (piInstSet != null && !methodNames.Contains(piInstSet.Name))
           {
+            methodNames.Add(piInstSet.Name);
             MethodBuilder proxyInstanceSet = typeBuilder.DefineMethod(piInstSet.Name, piInstSet.Attributes);
             proxyInstanceSet.SetReturnType(piInstSet.ReturnType);
             proxyInstanceSet.CopyParametersFrom(piInstSet);

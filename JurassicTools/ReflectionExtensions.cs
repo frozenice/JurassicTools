@@ -40,17 +40,29 @@ namespace JurassicTools
     {
       foreach (CustomAttributeData customAttributeData in info.GetCustomAttributesData())
       {
-        builder.SetCustomAttribute(customAttributeData.GetAttributeCopy());
+        try
+        {
+          builder.SetCustomAttribute(customAttributeData.GetAttributeCopy());
+        }
+        catch (Exception)
+        {
+        }
       }
       foreach (Attribute additionalAttribute in additionalAttributes)
       {
-        Type attributeType = additionalAttribute.GetType();
-        PropertyInfo[] properties = attributeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-        FieldInfo[] fields = attributeType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-        CustomAttributeBuilder cab = new CustomAttributeBuilder(attributeType.GetConstructors()[0], new object[0], properties,
-                                                                properties.Select(p => p.GetValue(additionalAttribute, null)).ToArray(), fields,
-                                                                fields.Select(f => f.GetValue(additionalAttribute)).ToArray());
-        builder.SetCustomAttribute(cab);
+        try
+        {
+          Type attributeType = additionalAttribute.GetType();
+          PropertyInfo[] properties = attributeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+          FieldInfo[] fields = attributeType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+          CustomAttributeBuilder cab = new CustomAttributeBuilder(attributeType.GetConstructors()[0], new object[0], properties,
+                                                                  properties.Select(p => p.GetValue(additionalAttribute, null)).ToArray(), fields,
+                                                                  fields.Select(f => f.GetValue(additionalAttribute)).ToArray());
+          builder.SetCustomAttribute(cab);
+        }
+        catch (Exception)
+        {
+        }
       }
     }
 
@@ -58,17 +70,29 @@ namespace JurassicTools
     {
       foreach (CustomAttributeData customAttributeData in info.GetCustomAttributesData())
       {
-        builder.SetCustomAttribute(customAttributeData.GetAttributeCopy());
+        try
+        {
+          builder.SetCustomAttribute(customAttributeData.GetAttributeCopy());
+        }
+        catch (Exception)
+        {
+        }
       }
       foreach (Attribute additionalAttribute in additionalAttributes)
       {
-        Type attributeType = additionalAttribute.GetType();
-        PropertyInfo[] properties = attributeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-        FieldInfo[] fields = attributeType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-        CustomAttributeBuilder cab = new CustomAttributeBuilder(attributeType.GetConstructors()[0], new object[0], properties,
-                                                                properties.Select(p => p.GetValue(additionalAttribute, null)).ToArray(), fields,
-                                                                fields.Select(f => f.GetValue(additionalAttribute)).ToArray());
-        builder.SetCustomAttribute(cab);
+        try
+        {
+          Type attributeType = additionalAttribute.GetType();
+          PropertyInfo[] properties = attributeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+          FieldInfo[] fields = attributeType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+          CustomAttributeBuilder cab = new CustomAttributeBuilder(attributeType.GetConstructors()[0], new object[0], properties,
+                                                                  properties.Select(p => p.GetValue(additionalAttribute, null)).ToArray(), fields,
+                                                                  fields.Select(f => f.GetValue(additionalAttribute)).ToArray());
+          builder.SetCustomAttribute(cab);
+        }
+        catch (Exception)
+        {
+        }
       }
     }
 
@@ -76,18 +100,30 @@ namespace JurassicTools
     {
       foreach (CustomAttributeData customAttributeData in info.GetCustomAttributesData())
       {
-        builder.SetCustomAttribute(customAttributeData.GetAttributeCopy());
+        try
+        {
+          builder.SetCustomAttribute(customAttributeData.GetAttributeCopy());
+        }
+        catch (Exception)
+        {
+        }
       }
       foreach (Attribute additionalAttribute in additionalAttributes)
       {
-        Type attributeType = additionalAttribute.GetType();
-        PropertyInfo[] properties = attributeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-        FieldInfo[] fields = attributeType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-        CustomAttributeBuilder cab = new CustomAttributeBuilder(attributeType.GetConstructors()[0],
-                                                                new object[/*attributeType.GetConstructors()[0].GetParameters().Count()*/0], properties,
-                                                                properties.Select(p => p.GetValue(additionalAttribute, null)).ToArray(), fields,
-                                                                fields.Select(f => f.GetValue(additionalAttribute)).ToArray());
-        builder.SetCustomAttribute(cab);
+        try
+        {
+          Type attributeType = additionalAttribute.GetType();
+          PropertyInfo[] properties = attributeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+          FieldInfo[] fields = attributeType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+          CustomAttributeBuilder cab = new CustomAttributeBuilder(attributeType.GetConstructors()[0],
+                                                                  new object[/*attributeType.GetConstructors()[0].GetParameters().Count()*/0], properties,
+                                                                  properties.Select(p => p.GetValue(additionalAttribute, null)).ToArray(), fields,
+                                                                  fields.Select(f => f.GetValue(additionalAttribute)).ToArray());
+          builder.SetCustomAttribute(cab);
+        }
+        catch (Exception)
+        {
+        }
       }
     }
 
