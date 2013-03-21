@@ -216,9 +216,9 @@ namespace JurassicTools
             if (piStaticGet == null && piStaticSet == null) continue;
             PropertyBuilder proxyStatic = typeBuilder.DefineProperty(piStatic.Name, piStatic.Attributes, GetConvertOrWrapType(piStatic.PropertyType), null);
             proxyStatic.CopyCustomAttributesFrom(piStatic, infoAttributes);
-            if (piStaticGet != null && !methodNames.Contains(piStaticGet.Name))
+            if (piStaticGet != null /*&& !methodNames.Contains(piStaticGet.Name)*/)
             {
-              methodNames.Add(piStaticGet.Name);
+              //methodNames.Add(piStaticGet.Name);
               MethodBuilder proxyStaticGet = typeBuilder.DefineMethod(piStaticGet.Name, piStaticGet.Attributes & ~MethodAttributes.Static);
               proxyStaticGet.SetReturnType(GetConvertOrWrapType(piStaticGet.ReturnType));
               proxyStaticGet.CopyParametersFrom(piStaticGet);
@@ -243,9 +243,9 @@ namespace JurassicTools
               getGen.Emit(OpCodes.Ret);
               proxyStatic.SetGetMethod(proxyStaticGet);
             }
-            if (piStaticSet != null && !methodNames.Contains(piStaticSet.Name))
+            if (piStaticSet != null /*&& !methodNames.Contains(piStaticSet.Name)*/)
             {
-              methodNames.Add(piStaticSet.Name);
+              //methodNames.Add(piStaticSet.Name);
               MethodBuilder proxyStaticSet = typeBuilder.DefineMethod(piStaticSet.Name, piStaticSet.Attributes & ~MethodAttributes.Static);
               proxyStaticSet.SetReturnType(piStaticSet.ReturnType);
               proxyStaticSet.CopyParametersFrom(piStaticSet);
@@ -864,9 +864,9 @@ namespace JurassicTools
           if (piInstGet == null && piInstSet == null) continue;
           PropertyBuilder proxyInstance = typeBuilder.DefineProperty(piInst.Name, piInst.Attributes, GetConvertOrWrapType(piInst.PropertyType), null);
           proxyInstance.CopyCustomAttributesFrom(piInst, infoAttributes);
-          if (piInstGet != null && !methodNames.Contains(piInstGet.Name))
+          if (piInstGet != null /*&& !methodNames.Contains(piInstGet.Name)*/)
           {
-            methodNames.Add(piInstGet.Name);
+            //methodNames.Add(piInstGet.Name);
             MethodBuilder proxyInstanceGet = typeBuilder.DefineMethod(piInstGet.Name, piInstGet.Attributes);
             proxyInstanceGet.SetReturnType(GetConvertOrWrapType(piInstGet.ReturnType));
             proxyInstanceGet.CopyParametersFrom(piInstGet);
@@ -886,9 +886,9 @@ namespace JurassicTools
             getGen.Emit(OpCodes.Ret);
             proxyInstance.SetGetMethod(proxyInstanceGet);
           }
-          if (piInstSet != null && !methodNames.Contains(piInstSet.Name))
+          if (piInstSet != null /*&& !methodNames.Contains(piInstSet.Name)*/)
           {
-            methodNames.Add(piInstSet.Name);
+            //methodNames.Add(piInstSet.Name);
             MethodBuilder proxyInstanceSet = typeBuilder.DefineMethod(piInstSet.Name, piInstSet.Attributes);
             proxyInstanceSet.SetReturnType(piInstSet.ReturnType);
             proxyInstanceSet.CopyParametersFrom(piInstSet);
